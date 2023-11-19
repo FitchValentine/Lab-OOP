@@ -7,23 +7,32 @@ class Point:
         self.y = y
         self.z = z
 
-    # Метод для вычисления расстояния между двумя точками
+    def __str__(self):
+        return f"({self.x}, {self.y}, {self.z})"
+
+    def __repr__(self):
+        return str(self)
+
     def distance(self, other):
         return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2 + (self.z - other.z) ** 2)
 
 # Класс для представления вектора в трехмерном пространстве
 class Vector:
     def __init__(self, *args):
-        # Вектор может быть задан либо координатами (x, y, z), либо двумя точками
         if len(args) == 3:
             self.x, self.y, self.z = args
         elif len(args) == 2:
-            # Если переданы две точки, вычисляем координаты вектора
             self.x = args[1].x - args[0].x
             self.y = args[1].y - args[0].y
             self.z = args[1].z - args[0].z
         else:
             raise ValueError("Неправильное количество аргументов")
+
+    def __str__(self):
+        return f"({self.x}, {self.y}, {self.z})"
+
+    def __repr__(self):
+        return str(self)
 
     # Операции сложения и вычитания векторов
     def __add__(self, other):
@@ -61,17 +70,14 @@ class Vector:
 
     # Проверка коллинеарности двух векторов
     def are_collinear(self, other):
-        # Векторы коллинеарны, если их векторное произведение равно нулю
         return self.cross_product(other).length() == 0
 
     # Проверка компланарности трех векторов
     def are_coplanar(self, other1, other2):
-        # Векторы компланарны, если их смешанное произведение равно нулю
         return self.mixed_product(other1, other2) == 0
 
     # Расстояние между двумя точками
     def distance(self, other):
-        # Теперь метод расстояния также доступен для векторов
         return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2 + (self.z - other.z) ** 2)
 
     # Угол между двумя векторами в радианах
@@ -82,40 +88,72 @@ class Vector:
             raise ValueError("Невозможно вычислить угол для нулевого вектора")
         return math.acos(dot_product / magnitude_product)
 
+# Функция для получения ввода пользователя и создания вектора
+def get_vector_input():
+    x = float(input("Введите x-координату: "))
+    y = float(input("Введите y-координату: "))
+    z = float(input("Введите z-координату: "))
+    return Vector(x, y, z)
+
 # Пример использования
 if __name__ == "__main__":
-    point1 = Point(1, 2, 3)
-    point2 = Point(4, 5, 6)
+    print("Программа для работы с векторами в трехмерном пространстве.")
 
-    vector1 = Vector(1, 2, 3)
-    vector2 = Vector(point1, point2)
+    # Ввод координат для точки 1
+    x1, y1, z1 = map(float, input("Введите координаты точки 1 (x y z): ").split())
+    point1 = Point(x1, y1, z1)
 
-    print(f"Вектор1: ({vector1.x}, {vector1.y}, {vector1.z})")
-    print(f"Вектор2: ({vector2.x}, {vector2.y}, {vector2.z})")
+    # Ввод координат для точки 2
+    x2, y2, z2 = map(float, input("Введите координаты точки 2 (x y z): ").split())
+    point2 = Point(x2, y2, z2)
 
-    result_add = vector1 + vector2
-    result_sub = vector1 - vector2
-    result_neg = -vector1
-    result_normalize = vector1.normalize()
-    result_dot_product = vector1.dot_product(vector2)
-    result_cross_product = vector1.cross_product(vector2)
-    result_mixed_product = vector1.mixed_product(vector2, Vector(1, 1, 1))
-    result_length = vector1.length()
-    result_collinear = vector1.are_collinear(vector2)
-    result_coplanar = vector1.are_coplanar(vector2, Vector(2, 2, 2))
-    result_distance = point1.distance(point2)
-    result_angle = vector1.angle(vector2)
+    print("\nВведите координаты векторов:")
+    vector1 = get_vector_input()
+    vector2 = get_vector_input()
 
-    # Вывод результатов
-    print(f"Сложение: ({result_add.x}, {result_add.y}, {result_add.z})")
-    print(f"Вычитание: ({result_sub.x}, {result_sub.y}, {result_sub.z})")
-    print(f"Обратный вектор: ({result_neg.x}, {result_neg.y}, {result_neg.z})")
-    print(f"Единичный вектор: ({result_normalize.x}, {result_normalize.y}, {result_normalize.z})")
-    print(f"Скалярное произведение: {result_dot_product}")
-    print(f"Векторное произведение: ({result_cross_product.x}, {result_cross_product.y}, {result_cross_product.z})")
-    print(f"Смешанное произведение: {result_mixed_product}")
-    print(f"Длина вектора: {result_length}")
-    print(f"Коллинеарность: {result_collinear}")
-    print(f"Компланарность: {result_coplanar}")
-    print(f"Расстояние между точками: {result_distance}")
-    print(f"Угол между векторами (в радианах): {result_angle}")
+    print("\nВыберите операцию:")
+    print("1. Сложение векторов")
+    print("2. Вычитание векторов")
+    print("3. Обратный вектор")
+    print("4. Единичный вектор")
+    print("5. Скалярное произведение векторов")
+    print("6. Векторное произведение векторов")
+    print("7. Смешанное произведение векторов")
+    print("8. Длина вектора")
+    print("9. Проверка коллинеарности векторов")
+    print("10. Проверка компланарности векторов")
+    print("11. Расстояние между точками")
+    print("12. Угол между векторами")
+
+    choice = int(input("Введите номер операции: "))
+
+    if choice == 1:
+        result = vector1 + vector2
+    elif choice == 2:
+        result = vector1 - vector2
+    elif choice == 3:
+        result = -vector1
+    elif choice == 4:
+        result = vector1.normalize()
+    elif choice == 5:
+        result = vector1.dot_product(vector2)
+    elif choice == 6:
+        result = vector1.cross_product(vector2)
+    elif choice == 7:
+        result = vector1.mixed_product(vector2, Vector(1, 1, 1))
+    elif choice == 8:
+        result = vector1.length()
+    elif choice == 9:
+        result = vector1.are_collinear(vector2)
+    elif choice == 10:
+        result = vector1.are_coplanar(vector2, Vector(2, 2, 2))
+    elif choice == 11:
+        result = point1.distance(point2)
+    elif choice == 12:
+        result = vector1.angle(vector2)
+    else:
+        print("Некорректный выбор операции.")
+        result = None
+
+    if result is not None:
+        print(f"\nРезультат операции: {result}")
