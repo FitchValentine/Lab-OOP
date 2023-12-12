@@ -6,7 +6,7 @@ class Control:
     def getPosition(self):
         print(f"Вызван метод getPosition у контролла {self.__class__.__name__}")
 
-# Класс для формы, содержащий контроллы
+# Класс для формы, содержащей контроллы
 class Form(Control):
     def __init__(self):
         self.controls = []
@@ -59,7 +59,6 @@ class Button(Control):
     def click(self):
         print(f"Вызван метод click у кнопки")
 
-
 # Создание фабрик для различных операционных систем
 class ControlFactory:
     def createForm(self):
@@ -80,54 +79,101 @@ class ControlFactory:
 # Фабрика для Windows
 class WindowsControlFactory(ControlFactory):
     def createForm(self):
-        return Form()
+        return WindowsForm()
 
     def createLabel(self):
-        return Label()
+        return WindowsLabel()
 
     def createTextBox(self):
-        return TextBox()
+        return WindowsTextBox()
 
     def createComboBox(self):
-        return ComboBox()
+        return WindowsComboBox()
 
     def createButton(self):
-        return Button()
+        return WindowsButton()
 
 # Фабрика для Linux
 class LinuxControlFactory(ControlFactory):
     def createForm(self):
-        return Form()
+        return LinuxForm()
 
     def createLabel(self):
-        return Label()
+        return LinuxLabel()
 
     def createTextBox(self):
-        return TextBox()
+        return LinuxTextBox()
 
     def createComboBox(self):
-        return ComboBox()
+        return LinuxComboBox()
 
     def createButton(self):
-        return Button()
+        return LinuxButton()
 
 # Фабрика для MacOS
 class MacOSControlFactory(ControlFactory):
     def createForm(self):
-        return Form()
+        return MacOSForm()
 
     def createLabel(self):
-        return Label()
+        return MacOSLabel()
 
     def createTextBox(self):
-        return TextBox()
+        return MacOSTextBox()
 
     def createComboBox(self):
-        return ComboBox()
+        return MacOSComboBox()
 
     def createButton(self):
-        return Button()
+        return MacOSButton()
 
+# Классы для конкретных контролов и форм для Windows
+class WindowsForm(Form):
+    pass
+
+class WindowsLabel(Label):
+    pass
+
+class WindowsTextBox(TextBox):
+    pass
+
+class WindowsComboBox(ComboBox):
+    pass
+
+class WindowsButton(Button):
+    pass
+
+# Классы для конкретных контролов и форм для Linux
+class LinuxForm(Form):
+    pass
+
+class LinuxLabel(Label):
+    pass
+
+class LinuxTextBox(TextBox):
+    pass
+
+class LinuxComboBox(ComboBox):
+    pass
+
+class LinuxButton(Button):
+    pass
+
+# Классы для конкретных контролов и форм для MacOS
+class MacOSForm(Form):
+    pass
+
+class MacOSLabel(Label):
+    pass
+
+class MacOSTextBox(TextBox):
+    pass
+
+class MacOSComboBox(ComboBox):
+    pass
+
+class MacOSButton(Button):
+    pass
 
 # Пример использования
 def run_simulation(factory):
@@ -146,7 +192,6 @@ def run_simulation(factory):
     textBox.setText("Текстовое поле")
     comboBox.setItems(["Опция 1", "Опция 2", "Опция 3"])
     button.click()
-
 
 # Выбор фабрики в зависимости от операционной системы
 os_name = "Windows"  # Замените на свою текущую операционную систему
