@@ -1,3 +1,6 @@
+import keyboard
+import subprocess
+
 # Класс Command, представляющий команду
 class Command:
     def execute(self):
